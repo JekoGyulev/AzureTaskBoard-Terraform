@@ -100,4 +100,3 @@ resource "azurerm_app_service_source_control" "source-control" {
 }
 
 
-// PART 2 : 
