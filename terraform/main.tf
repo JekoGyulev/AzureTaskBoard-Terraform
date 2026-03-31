@@ -4,11 +4,6 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "=4.1.0"
     }
-
-    random = {
-      source  = "hashicorp/random"
-      version = "=3.8.1"
-    }
   }
 
   backend "azurerm" {
@@ -27,18 +22,13 @@ provider "azurerm" {
   features {}
 }
 
-resource "random_integer" "ri" {
-  min = 10000
-  max = 99999
-}
-
 resource "azurerm_resource_group" "arg" {
-  name     = "${var.resource_group_name}-${random_integer.ri.result}"
+  name     = "${var.resource_group_name}-jeko"
   location = var.location
 }
 
 resource "azurerm_service_plan" "app-service-plan" {
-  name                = "${var.app_service_plan_name}-${random_integer.ri.result}"
+  name                = "${var.app_service_plan_name}-jeko"
   resource_group_name = azurerm_resource_group.arg.name
   location            = azurerm_resource_group.arg.location
   sku_name            = "F1"
@@ -46,7 +36,7 @@ resource "azurerm_service_plan" "app-service-plan" {
 }
 
 resource "azurerm_linux_web_app" "web-app" {
-  name                = "${var.app_service_name}-${random_integer.ri.result}"
+  name                = "${var.app_service_name}-jeko"
   location            = azurerm_resource_group.arg.location
   resource_group_name = azurerm_resource_group.arg.name
   service_plan_id     = azurerm_service_plan.app-service-plan.id
@@ -69,7 +59,7 @@ resource "azurerm_linux_web_app" "web-app" {
 
 // PART 1 : 
 resource "azurerm_mssql_server" "mssqlserver" {
-  name                         = "${var.sql_server_name}-${random_integer.ri.result}"
+  name                         = "${var.sql_server_name}-jeko"
   resource_group_name          = azurerm_resource_group.arg.name
   location                     = azurerm_resource_group.arg.location
   version                      = "12.0"
@@ -79,7 +69,7 @@ resource "azurerm_mssql_server" "mssqlserver" {
 
 
 resource "azurerm_mssql_database" "mssqldb" {
-  name                 = "${var.sql_db_name}-${random_integer.ri.result}"
+  name                 = "${var.sql_db_name}-jeko"
   server_id            = azurerm_mssql_server.mssqlserver.id
   collation            = "SQL_Latin1_General_CP1_CI_AS"
   license_type         = "LicenseIncluded"
@@ -95,7 +85,7 @@ resource "azurerm_mssql_database" "mssqldb" {
 
 
 resource "azurerm_mssql_firewall_rule" "firewall" {
-  name             = "${var.firewall-rule-name}-${random_integer.ri.result}"
+  name             = "${var.firewall-rule-name}-jeko"
   server_id        = azurerm_mssql_server.mssqlserver.id
   start_ip_address = "0.0.0.0"
   end_ip_address   = "0.0.0.0"
