@@ -6,13 +6,19 @@ terraform {
     }
   }
 
+  backend "azurerm" {
+    resource_group_name  = "storageRG"
+    storage_account_name = "taskboardstoragejeko"
+    container_name       = "taskboardcontainerjeko"
+    key                  = "terraform.tfstate"
+  }
 
 }
 
 
 
 provider "azurerm" {
-  subscription_id = "3556e95d-01ce-4530-a696-7b54261a79c2"
+  subscription_id = var.subscription_id
   features {}
 }
 
@@ -51,7 +57,6 @@ resource "azurerm_linux_web_app" "web-app" {
 }
 
 
-// PART 1 : 
 resource "azurerm_mssql_server" "mssqlserver" {
   name                         = "${var.sql_server_name}-jeko"
   resource_group_name          = azurerm_resource_group.arg.name
@@ -91,4 +96,29 @@ resource "azurerm_app_service_source_control" "source-control" {
   branch                 = var.github_repo_branch
   use_manual_integration = true
 }
+
+
+# resource "azurerm_resource_group" "storage_resource_group" {
+#   name     = "storageRG"
+#   location = var.location
+# }
+
+# resource "azurerm_storage_account" "storage_account" {
+#   name                     = "taskboardstorage"
+#   resource_group_name      = azurerm_resource_group.storage_resource_group.name
+#   location                 = azurerm_resource_group.storage_resource_group.location
+#   account_kind             = "StorageV2"
+#   account_tier             = "Standard"
+#   account_replication_type = "LRS"
+# }
+
+
+# resource "azurerm_storage_container" "storage_container" {
+#   name                 = "taskboardcontainer"
+#   storage_account_name = azurerm_storage_account.storage_account.name
+# }
+
+
+
+
 
