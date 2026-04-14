@@ -109,7 +109,7 @@ Developer pushes code
 
 The GitHub Actions pipeline automates the full delivery lifecycle:
 
-1. **Trigger** — The pipeline is triggered automatically on a push or pull request to the `master` branch.
+1. **Trigger** — The pipeline is triggered automatically on a push to the `master` branch.
 2. **Terraform Init & Plan** — Terraform initialises its backend and computes the infrastructure changes required.
 3. **Terraform Apply** — Azure resources are provisioned or updated automatically.
 4. **Build & Publish** — The .NET application is built using the .NET CLI (`dotnet restore`, `dotnet publish`).
