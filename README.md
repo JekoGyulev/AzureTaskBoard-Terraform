@@ -30,7 +30,7 @@ A full-stack ASP.NET Core web application integrated with a fully automated clou
 This project demonstrates a real-world **DevOps workflow** where application code and cloud infrastructure are managed together as code. The key goals are:
 
 - **Reproducibility** — the entire Azure environment can be created or destroyed with a single command.
-- **Automation** — every push to the main branch triggers a pipeline that builds, tests, provisions infrastructure, and deploys the application.
+- **Automation** — every push to the main branch triggers a pipeline that provisions infrastructure,builds and deploys the application.
 - **Separation of concerns** — application logic (`TaskBoard.WebApp`, `TaskBoard.Data`) is cleanly decoupled from infrastructure configuration (`terraform/`).
 
 The application itself is a **Task Board** — a web-based tool for managing and tracking tasks, built with ASP.NET Core MVC and backed by a relational database.
